@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.example.bakeit.databinding.ActivitySplashScreenBinding
+import com.example.bakeit.view.activities.MainActivity
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
