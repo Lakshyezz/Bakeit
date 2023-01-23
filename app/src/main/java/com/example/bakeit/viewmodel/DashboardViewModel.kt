@@ -1,4 +1,4 @@
-package com.example.bakeit.ui.dashboard
+package com.example.bakeit.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

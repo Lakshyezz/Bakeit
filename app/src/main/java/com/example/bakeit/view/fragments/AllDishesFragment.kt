@@ -1,4 +1,4 @@
-package com.example.bakeit.ui.home
+package com.example.bakeit.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.bakeit.databinding.FragmentHomeBinding
+import com.example.bakeit.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 

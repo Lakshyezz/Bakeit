@@ -1,4 +1,4 @@
-package com.example.bakeit.ui.dashboard
+package com.example.bakeit.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.bakeit.databinding.FragmentDashboardBinding
+import com.example.bakeit.viewmodel.DashboardViewModel
 
 class DashboardFragment : Fragment() {
 

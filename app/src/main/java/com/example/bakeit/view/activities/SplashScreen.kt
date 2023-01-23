@@ -1,4 +1,4 @@
-package com.example.bakeit
+package com.example.bakeit.view.activities
 
 import android.content.Intent
 import android.os.Build
@@ -9,8 +9,8 @@ import android.os.Looper
 import android.view.WindowInsets
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.example.bakeit.R
 import com.example.bakeit.databinding.ActivitySplashScreenBinding
-import com.example.bakeit.view.activities.MainActivity
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class SplashScreen : AppCompatActivity() {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         }
 
-        val splashAnimation = AnimationUtils.loadAnimation(this,R.anim.anime_splash)
+        val splashAnimation = AnimationUtils.loadAnimation(this, R.anim.anime_splash)
     splashBinding.tvAppName.animation = splashAnimation
         splashAnimation.setAnimationListener(object : Animation.AnimationListener{
             override fun onAnimationStart(animation: Animation?) {

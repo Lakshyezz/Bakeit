@@ -2,6 +2,7 @@ package com.example.bakeit.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.bakeit.R
 
 class AddUpdateDishActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
