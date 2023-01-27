@@ -16,6 +16,7 @@
             android:name=".view.activities.AddUpdateDishActivity"
             android:label="Add Dish"
             android:theme="@style/Theme.BakeIt.NoActionBar"
+            android:configChanges="orientation"
             >
             <meta-data
                 android:name="android.app.lib_name"
