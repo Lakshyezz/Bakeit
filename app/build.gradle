@@ -38,7 +38,9 @@ android {
 
 dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
-    implementation 'com.karumi:dexter:6.2.3'
+    implementation 'com.karumi:dexter:6.2.3'                // permissions one
+    implementation 'com.github.bumptech.glide:glide:4.14.2'         // this and below one for image processing
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
