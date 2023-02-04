@@ -31,6 +31,8 @@ import com.bumptech.glide.request.target.Target
 import com.example.bakeit.R
 import com.example.bakeit.databinding.ActivityAddUpdateDishBinding
 import com.example.bakeit.databinding.DialogCustomImageSelectionBinding
+import com.example.bakeit.databinding.DialogCustomListBinding
+import com.example.bakeit.view.adapters.CustomListItemAdapter
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -64,6 +66,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
         setContentView(mBinding.root)
         setActionBar()
         mBinding.ivAddDishImage.setOnClickListener(this)
+
+        mBinding.etType.setOnClickListener(this)
     }
 
     private fun setActionBar() {
@@ -255,4 +259,16 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
         return  file.absolutePath
     }
 
+    private fun customItemsDialog(title: String, itemsList: List<String>, selection: String){
+        val customListDialog = Dialog(this)
+        val binding: DialogCustomListBinding = DialogCustomListBinding
+            .inflate(LayoutInflater.from(this))
+        customListDialog.setContentView(binding.root)
+
+        binding.tvTitle.text = title
+
+        val adapter = CustomListItemAdapter(this,itemsList,selection)
+        binding.rvList.adapter = adapter
+        customListDialog.show()
+    }
 }

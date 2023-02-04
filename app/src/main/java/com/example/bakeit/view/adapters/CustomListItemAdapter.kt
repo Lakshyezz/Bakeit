@@ -20,7 +20,7 @@ class CustomListItemAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemCustomListBinding = ItemCustomListBinding
-            .inflate(LayoutInflater.from(activity))
+            .inflate(LayoutInflater.from(activity),parent,false)
         return ViewHolder(binding)
     }
 
