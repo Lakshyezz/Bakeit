@@ -28,6 +28,12 @@ class CustomListItemAdapter(
         val item = listItems[position]
 
         holder.tvText.text = item
+
+        holder.itemView.setOnClickListener{
+            if(activity is AddUpdateDishActivity){
+                activity.selectedListItem(item, selection)
+            }
+        }
     }
 
     override fun getItemCount(): Int {

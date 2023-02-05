@@ -166,9 +166,7 @@
                 <EditText
                     android:id="@+id/et_ingredients"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+                    android:layout_height="@dimen/_100sdp"
                     android:inputType="text"
                     android:textColor="@color/grey_900"
                     android:textSize="@dimen/_15sdp" />
@@ -222,8 +220,6 @@
                     android:id="@+id/et_directions_to_cook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:inputType="text"
                     android:textColor="@color/grey_900"
                     android:textSize="@dimen/_15sdp" />
@@ -231,7 +227,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/button_add_dish"
+                android:id="@+id/btn_add_dish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_12sdp"

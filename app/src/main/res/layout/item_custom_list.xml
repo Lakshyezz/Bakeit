@@ -6,6 +6,7 @@
     android:orientation="vertical">
     <TextView
         android:id="@+id/tv_text"
+        android:layout_marginBottom="@dimen/_4sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -15,6 +16,7 @@
         android:textSize="@dimen/_16sdp"
         tools:text= "Item Value" />
     <View
+        android:layout_marginBottom="@dimen/_4sdp"
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"

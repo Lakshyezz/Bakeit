@@ -33,6 +33,18 @@ object Constants {
         list.add("Sandwich")
         list.add("Tea & Coffee")
         list.add("Wraps")
+        list.add("Beverages")
+        list.add("Subs")
+        list.add("Croissant")
+        list.add("Other")
+        list.add("Hot Dogs")
+        list.add("Juices")
+        list.add("Sandwich")
+        list.add("Tea & Coffee")
+        list.add("Wraps")
+        list.add("Beverages")
+        list.add("Subs")
+        list.add("Croissant")
         list.add("Other")
         return list
     }
