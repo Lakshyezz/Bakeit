@@ -20,6 +20,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,11 +31,15 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.bakeit.R
+import com.example.bakeit.application.BakeitApplication
 import com.example.bakeit.databinding.ActivityAddUpdateDishBinding
 import com.example.bakeit.databinding.DialogCustomImageSelectionBinding
 import com.example.bakeit.databinding.DialogCustomListBinding
+import com.example.bakeit.model.entities.Bakeit
 import com.example.bakeit.utils.Constants
 import com.example.bakeit.view.adapters.CustomListItemAdapter
+import com.example.bakeit.viewmodel.BakeitViewModel
+import com.example.bakeit.viewmodel.BakeitViewModelFactory
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -61,6 +66,10 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
     private var mImagePath: String = ""
 
     private lateinit var mCustomListDialog: Dialog
+
+    private val mBakeitViewModel: BakeitViewModel by viewModels{
+            BakeitViewModelFactory((application as BakeitApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,9 +155,24 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
                                 ).show()
                             }
                         else -> {
-                            Toast.makeText(this@AddUpdateDishActivity,
-                            "All the entries are valid",Toast.LENGTH_SHORT
+                            val dishDetails: Bakeit = Bakeit(
+                                mImagePath,
+                                Constants.DISH_IMAGE_SOURCE_LOCAL,
+                                title,
+                                type,
+                                category,
+                                ingredients,
+                                cookingTimeInMinutes,
+                                cookingDirection,
+                                false
+                            )
+                            mBakeitViewModel.insert(dishDetails)
+                            Toast.makeText(this@AddUpdateDishActivity
+                                ,"You Successfully added your dish details."
+                                ,Toast.LENGTH_SHORT
                             ).show()
+                            Log.i("Insertion", "Success")
+                            finish()
                         }
 
                         }

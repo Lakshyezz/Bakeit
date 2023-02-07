@@ -8,6 +8,9 @@ import com.example.bakeit.model.entities.Bakeit
 
 @Database(entities = [Bakeit:: class], version = 1)
 abstract class BakeitRoomDatabase:RoomDatabase() {
+
+    abstract fun bakeitDao():BakeitDao
+
     companion object{
         // Singleton prevents multiple instances of database opening at the
         // same time.

@@ -2,18 +2,32 @@ package com.example.bakeit.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bakeit.R
+import com.example.bakeit.application.BakeitApplication
+import com.example.bakeit.databinding.FragmentAllDishesBinding
+import com.example.bakeit.databinding.ItemDishLayoutBinding
 import com.example.bakeit.view.activities.AddUpdateDishActivity
+import com.example.bakeit.view.adapters.BakeitAdapter
+import com.example.bakeit.viewmodel.BakeitViewModel
+import com.example.bakeit.viewmodel.BakeitViewModelFactory
 //import com.example.bakeit.databinding.FragmentHomeBinding
 import com.example.bakeit.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
 
-//    private var _binding: inflater? = null
+       lateinit var mBinding:FragmentAllDishesBinding
+
+    private val mBakeitViewModel: BakeitViewModel by viewModels{
+        BakeitViewModelFactory((requireActivity().application as BakeitApplication).repository)
+    }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -29,17 +43,31 @@ class AllDishesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel  =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        mBinding = FragmentAllDishesBinding.inflate(inflater,container,false)
+        return  mBinding.root
+    }
 
-        val root  = inflater.inflate(R.layout.fragment_all_dishes, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(),2)
+        val bakeitAdapter = BakeitAdapter(this@AllDishesFragment)   // object of adapter we just created
 
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        mBinding.rvDishesList.adapter = bakeitAdapter
+
+        mBakeitViewModel.allDishesList.observe(viewLifecycleOwner){
+            dishes ->
+            dishes.let {
+                if (it.isNotEmpty()){
+                    mBinding.rvDishesList.visibility = View.VISIBLE     // if not empty atleast one dish is in dataset show list
+                    mBinding.tvNoDishesAddedYet.visibility = View.GONE  // and disable the visibilty of text that needs to be shown if not data is present in dataset
+                    bakeitAdapter.dishesList(it)
+                }else{
+                    mBinding.rvDishesList.visibility = View.GONE
+                    mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                }
+            }
         }
-        return root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
