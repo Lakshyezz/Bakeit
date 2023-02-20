@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bakeit.R
 import com.example.bakeit.application.BakeitApplication
 import com.example.bakeit.databinding.FragmentAllDishesBinding
 import com.example.bakeit.databinding.ItemDishLayoutBinding
+import com.example.bakeit.model.entities.Bakeit
 import com.example.bakeit.view.activities.AddUpdateDishActivity
+import com.example.bakeit.view.activities.MainActivity
 import com.example.bakeit.view.adapters.BakeitAdapter
 import com.example.bakeit.viewmodel.BakeitViewModel
 import com.example.bakeit.viewmodel.BakeitViewModelFactory
@@ -70,6 +73,21 @@ class AllDishesFragment : Fragment() {
         }
     }
 
+    fun dishDetails(bakeit: Bakeit){
+        findNavController().navigate(AllDishesFragmentDirections
+            .actionAllDishesToDishDetails(bakeit ))
+
+        if(requireActivity() is MainActivity){
+            (activity as MainActivity?)?.hideBottomNavigationView()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(requireActivity() is MainActivity){
+            (activity as MainActivity?)?.showBottomNavigationView()
+        }
+    }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
        inflater.inflate(R.menu.menu_all_dishes, menu)
         super.onCreateOptionsMenu(menu, inflater)

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bakeit.databinding.ItemDishLayoutBinding
 import com.example.bakeit.model.entities.Bakeit
+import com.example.bakeit.view.fragments.AllDishesFragment
 
 class BakeitAdapter(private val fragment: Fragment): RecyclerView.Adapter<BakeitAdapter.ViewHolder>() {
 
@@ -32,6 +33,11 @@ class BakeitAdapter(private val fragment: Fragment): RecyclerView.Adapter<Bakeit
             .into(holder.ivDishImage)
 
         holder.tvTitle.text = dish.title
+        holder.itemView.setOnClickListener{
+            if(fragment is AllDishesFragment){
+                fragment.dishDetails(dish)
+            }
+        }
     }
 
     override fun getItemCount(): Int {

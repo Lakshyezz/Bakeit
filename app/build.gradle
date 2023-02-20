@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -35,6 +37,16 @@ android {
         exclude 'META-INF/atomicfu.kotlin_module'
     }
 
+    buildscript {
+        repositories {
+            google()
+        }
+    }
+//    allprojects {
+//        repositories {
+//            google()
+//        }
+//    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -50,8 +62,13 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     def room_version = '2.5.0'
+
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    def fragment_version = "1.5.5"
+    implementation "androidx.fragment:fragment:$fragment_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
