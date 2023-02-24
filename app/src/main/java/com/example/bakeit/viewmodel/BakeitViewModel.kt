@@ -17,6 +17,12 @@ class BakeitViewModel(private val repository: BakeitRepository): ViewModel() {
     }
 
     val allDishesList: LiveData<List<Bakeit>> = repository.allDishesList.asLiveData()
+
+    fun  update(dish: Bakeit) = viewModelScope.launch {
+        repository.updateBakeitData(dish)
+    }
+
+    val favoriteDishes: LiveData<List<Bakeit>> = repository.favoriteDishes.asLiveData()
 }
 class BakeitViewModelFactory(private val repository: BakeitRepository):ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

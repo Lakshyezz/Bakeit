@@ -12,4 +12,11 @@ class BakeitRepository(private val bakeitDao: BakeitDao) {
     }
 
     val allDishesList: Flow<List<Bakeit>> = bakeitDao.getAllDishesList()        // flow is like observable it helps in controlling the flow of data coming from database and prevent instant loading of all data
+
+    @WorkerThread
+     suspend fun updateBakeitData(bakeit: Bakeit){
+         bakeitDao.updateBakeitDetails(bakeit)
+     }
+
+    val favoriteDishes: Flow<List<Bakeit>> = bakeitDao.getFavoriteDishList()
 }

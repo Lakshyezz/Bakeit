@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.bakeit.databinding.ItemDishLayoutBinding
 import com.example.bakeit.model.entities.Bakeit
 import com.example.bakeit.view.fragments.AllDishesFragment
+import com.example.bakeit.view.fragments.FavoriteDishesFragment
 
 class BakeitAdapter(private val fragment: Fragment): RecyclerView.Adapter<BakeitAdapter.ViewHolder>() {
 
@@ -35,6 +36,9 @@ class BakeitAdapter(private val fragment: Fragment): RecyclerView.Adapter<Bakeit
         holder.tvTitle.text = dish.title
         holder.itemView.setOnClickListener{
             if(fragment is AllDishesFragment){
+                fragment.dishDetails(dish)
+            }
+            if(fragment is FavoriteDishesFragment){
                 fragment.dishDetails(dish)
             }
         }

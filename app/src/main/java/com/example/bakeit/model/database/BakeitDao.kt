@@ -18,4 +18,8 @@ interface BakeitDao {
 
     @Update
     suspend fun updateBakeitDetails(bakeit: Bakeit)
+
+    @Query("SELECT * FROM Bakeit_table WHERE favorite_dish = 1")
+    fun getFavoriteDishList(): Flow<List<Bakeit>>
+
 }
