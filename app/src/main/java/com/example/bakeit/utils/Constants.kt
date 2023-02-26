@@ -10,6 +10,9 @@ object Constants {
 
     const val EXTRA_DISH_DETAILS: String = "DishDetails"    // we gonna use this when we go for edit dish/update dish and this'll work as a key for putExtra in intent
 
+    const val ALL_ITEMS: String = "All"
+    const val FILTER_SELECTION: String = "FilterSelection"
+
     fun dishTypes(): ArrayList<String>{
         val list = ArrayList<String>()
         list.add("breakfast")

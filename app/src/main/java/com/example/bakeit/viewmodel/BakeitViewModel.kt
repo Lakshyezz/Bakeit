@@ -27,6 +27,8 @@ class BakeitViewModel(private val repository: BakeitRepository): ViewModel() {
     fun  delete(dish: Bakeit) = viewModelScope.launch {
         repository.deleteBakeitData(dish)
     }
+    fun getFilteredList(value: String): LiveData<List<Bakeit>> =
+        repository.filteredListDishes(value).asLiveData()
 
 }
 class BakeitViewModelFactory(private val repository: BakeitRepository):ViewModelProvider.Factory{

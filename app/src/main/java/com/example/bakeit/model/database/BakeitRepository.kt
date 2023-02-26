@@ -24,4 +24,7 @@ class BakeitRepository(private val bakeitDao: BakeitDao) {
     suspend fun deleteBakeitData(bakeit: Bakeit){
         bakeitDao.deleteBakeitDetails(bakeit)
     }
+
+    fun filteredListDishes(value: String): Flow<List<Bakeit>> =
+                bakeitDao.getFilteredDishesList(value)
 }

@@ -21,4 +21,7 @@ interface BakeitDao {
 
     @Delete
     suspend fun deleteBakeitDetails(bakeit: Bakeit)
+
+    @Query("SELECT * FROM Bakeit_table WHERE type = :filterType")
+    fun getFilteredDishesList(filterType: String): Flow<List<Bakeit>>
 }
