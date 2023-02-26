@@ -1,9 +1,6 @@
 package com.example.bakeit.model.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.bakeit.model.entities.Bakeit
 import kotlinx.coroutines.flow.Flow
 
@@ -22,4 +19,6 @@ interface BakeitDao {
     @Query("SELECT * FROM Bakeit_table WHERE favorite_dish = 1")
     fun getFavoriteDishList(): Flow<List<Bakeit>>
 
+    @Delete
+    suspend fun deleteBakeitDetails(bakeit: Bakeit)
 }

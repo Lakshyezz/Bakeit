@@ -19,4 +19,9 @@ class BakeitRepository(private val bakeitDao: BakeitDao) {
      }
 
     val favoriteDishes: Flow<List<Bakeit>> = bakeitDao.getFavoriteDishList()
+
+    @WorkerThread
+    suspend fun deleteBakeitData(bakeit: Bakeit){
+        bakeitDao.deleteBakeitDetails(bakeit)
+    }
 }

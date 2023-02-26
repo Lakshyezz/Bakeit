@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -80,6 +81,22 @@ class AllDishesFragment : Fragment() {
         if(requireActivity() is MainActivity){
             (activity as MainActivity?)?.hideBottomNavigationView()
         }
+    }
+    fun deleteDish(dish: Bakeit){
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle("Delete Dish")
+        builder.setMessage("Are you sure you want to delete ${dish.title}?")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setPositiveButton("Yes"){ dialogInterface,_ ->
+            mBakeitViewModel.delete(dish)
+            dialogInterface.dismiss()
+        }
+        builder.setNegativeButton("No"){ dialogInterface,_ ->
+            dialogInterface.dismiss()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     override fun onResume() {

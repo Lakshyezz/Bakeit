@@ -23,6 +23,11 @@ class BakeitViewModel(private val repository: BakeitRepository): ViewModel() {
     }
 
     val favoriteDishes: LiveData<List<Bakeit>> = repository.favoriteDishes.asLiveData()
+
+    fun  delete(dish: Bakeit) = viewModelScope.launch {
+        repository.deleteBakeitData(dish)
+    }
+
 }
 class BakeitViewModelFactory(private val repository: BakeitRepository):ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
