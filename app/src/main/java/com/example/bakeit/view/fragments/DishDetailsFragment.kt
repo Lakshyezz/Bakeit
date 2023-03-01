@@ -1,12 +1,13 @@
 package com.example.bakeit.view.fragments
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -21,23 +22,18 @@ import com.bumptech.glide.request.target.Target
 import com.example.bakeit.R
 import com.example.bakeit.application.BakeitApplication
 import com.example.bakeit.databinding.FragmentDishDetailsBinding
+import com.example.bakeit.model.entities.Bakeit
+import com.example.bakeit.utils.Constants
 import com.example.bakeit.viewmodel.BakeitViewModel
 import com.example.bakeit.viewmodel.BakeitViewModelFactory
 import java.io.IOException
 import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DishDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class DishDetailsFragment : Fragment() {
     private var binding:FragmentDishDetailsBinding? = null
+    private var mBakeitDetails:Bakeit? = null
 
     private val bakeitViewModel:BakeitViewModel by viewModels {
         BakeitViewModelFactory(((requireActivity().application) as BakeitApplication).repository)
@@ -45,7 +41,53 @@ class DishDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_share,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.action_share_dish -> {
+                val type = "text/plain"
+                val subject = "Checkout this dish recipe"
+                var extraText = ""
+                val shareWith = "Share with"
+
+                mBakeitDetails?.let {
+                    var image = ""
+                    if(it.imageSource == Constants.DISH_IMAGE_SOURCE_ONLINE){
+                        image = it.image
+                    }
+
+                    var cookingInstructions = ""
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){ // same code as in random fragment to read html data from api but not its loaded already still
+                        cookingInstructions = Html.fromHtml(
+                            it.directionsToCook,
+                            Html.FROM_HTML_MODE_COMPACT
+                        ).toString()
+                    }else{
+                        @Suppress("DEPRECATION")
+                        cookingInstructions = Html.fromHtml(it.directionsToCook).toString()
+                    }
+                    extraText =
+                        "$image \n" +
+                                "\n Title:  ${it.title} \n\n Type: ${it.type} \n\n Category: ${it.category}" +
+                                "\n\n Ingredients: \n ${it.ingredients} \n\n Instructions To Cook: \n $cookingInstructions" +
+                                "\n\n Time required to cook the dish approx ${it.cookingTime} minutes."
+                }
+                val intent = Intent(Intent.ACTION_SEND) // basically code needed for a popup to pop when you click on share button
+                intent.putExtra(Intent.EXTRA_SUBJECT,subject)
+                intent.putExtra(Intent.EXTRA_TEXT,extraText)
+                startActivity(Intent.createChooser(intent,shareWith))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
@@ -58,7 +100,9 @@ class DishDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val args:DishDetailsFragmentArgs by navArgs()
+        mBakeitDetails = args.dishDetails
 
         args.let {
             try {
@@ -102,6 +146,15 @@ class DishDetailsFragment : Fragment() {
             binding!!.tvCategory.text = it.dishDetails.category
             binding!!.tvIngredients.text = it.dishDetails.ingredients
             binding!!.tvCookingDirection.text = it.dishDetails.directionsToCook
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){ // same code as in random fragment to read html data from api but not its loaded already still
+                binding!!.tvCookingDirection.text = Html.fromHtml(
+                    it.dishDetails.directionsToCook,
+                    Html.FROM_HTML_MODE_COMPACT
+                ).toString()
+            }else{
+                @Suppress("DEPRECATION")
+                binding!!.tvCookingDirection.text = Html.fromHtml(it.dishDetails.directionsToCook).toString()
+            }
             binding!!.tvCookingTime.text  =
                 resources.getString(R.string
                 .lbl_estimate_cooking_time,it.dishDetails.cookingTime)
