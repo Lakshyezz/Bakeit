@@ -1,6 +1,7 @@
 package com.example.bakeit.view.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -10,7 +11,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bakeit.R
 import com.example.bakeit.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
 //        val navView: BottomNavigationView = mbinding.navView
 
-         mNavController = findNavController(R.id.nav_host_fragment_activity_main)
+         mNavController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         mbinding.navView.clearAnimation()
         mbinding.navView.animate().translationY(mbinding.navView.height
             .toFloat()).duration = 300
+//        mbinding.navView.visibility = View.GONE
     }
     fun showBottomNavigationView(){
         mbinding.navView.clearAnimation()

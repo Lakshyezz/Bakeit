@@ -43,6 +43,8 @@
     <string name="action_filter_dishes">Filter Dishes</string>
     <string name="title_select_item_to_filter">SELECT ITEM TO FILTER</string>
 
+    <string name="msg_already_added_to_favorites">You have already added the dish to your favorites</string>
+
     <!-- TODO Step 6: Add the string value to the strings.xml-->
     <!--START-->
     <string name="lbl_estimate_cooking_time">The approx time required to cook the dish is %1$s minutes.</string>
